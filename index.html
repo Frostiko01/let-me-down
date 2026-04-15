@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Для тебя ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    font-family:Arial,sans-serif;
+    transition:1s ease;
+    background:radial-gradient(circle,#ffdde1,#ee9ca7);
+    padding:20px;
+    cursor:pointer;
+}
+
+.card{
+    width:360px;
+    max-width:95vw;
+    padding:15px;
+    border-radius:22px;
+    background:rgba(255,255,255,.25);
+    backdrop-filter:blur(15px);
+    box-shadow:0 20px 40px rgba(0,0,0,.25);
+    text-align:center;
+}
+
+img{
+    width:100%;
+    height:420px;
+    object-fit:cover;
+    border-radius:18px;
+    transition:opacity 1s ease;
+}
+
+.text{
+    margin-top:15px;
+    color:#1f1f1f;
+    font-size:18px;
+    min-height:55px;
+    line-height:1.4;
+}
+
+audio{
+    display:none;
+}
+
+/* адаптив */
+@media (max-width:430px){
+    img{height:360px;}
+    .text{font-size:16px;}
+}
+@media (max-width:375px){
+    img{height:320px;}
+}
+</style>
+</head>
+
+<body onclick="startMusic()">
+
+<div class="card">
+
+<img id="photo" src="./IMG_0548.JPG">
+
+<div class="text" id="text"></div>
+
+<audio id="music" src="./akjoltoy_kanat_uulu_begimay_super (mp3cut.net).mp3" loop playsinline></audio>
+
+</div>
+
+<script>
+
+/* 📸 ТВОИ ФОТО (уже вставлены) */
+let images = [
+"./photo_2026-04-12_11-14-45.jpg",
+"./IMG_0548.JPG",
+"./IMG_1601.JPG"
+];
+
+/* 💬 ТЕКСТЫ (можешь потом поменять) */
+let texts = [
+"Ты для меня — самое тёплое чувство, которое хочется беречь ❤️",
+"Иногда достаточно одного взгляда, чтобы всё стало понятно...",
+"И где бы ты ни была — мысли всё равно рядом с тобой 💖"
+];
+
+/* 🌈 ФОН */
+let backgrounds = [
+"radial-gradient(circle,#ffdde1,#ee9ca7)",
+"radial-gradient(circle,#a1c4fd,#c2e9fb)",
+"radial-gradient(circle,#fbc2eb,#a6c1ee)"
+];
+
+let i = 0;
+let started = false;
+
+let photo = document.getElementById("photo");
+let text = document.getElementById("text");
+let music = document.getElementById("music");
+
+/* 🎵 музыка (iPhone safe) */
+function startMusic(){
+    if(!started){
+        music.play();
+        started = true;
+    }
+}
+
+/* 🔄 слайд */
+function nextSlide(){
+
+    photo.style.opacity = 0;
+
+    setTimeout(()=>{
+
+        i = (i + 1) % images.length;
+
+        photo.src = images[i];
+        text.innerText = texts[i];
+        document.body.style.background = backgrounds[i];
+
+        photo.style.opacity = 1;
+
+    },500);
+}
+
+/* старт */
+text.innerText = texts[0];
+
+/* каждые 3 секунды */
+setInterval(nextSlide,3000);
+
+</script>
+
+</body>
+</html>
